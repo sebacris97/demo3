@@ -173,7 +173,12 @@ def register(request):
                      email=username)
             u.save()
             if m == 'Premium':
-                user = Usuario(user=u, fecha_de_nacimiento=fecha, is_premium=True)
+                user = Usuario(user=u, fecha_de_nacimiento=fecha)
+                user.save()
+                p = Perfil(usuario=user, username=u.first_name)
+                p.save()
+                do_login(request, u)
+                return HttpResponseRedirect('/premium')
             else:
                 user = Usuario(user=u, fecha_de_nacimiento=fecha)
             # Si el usuario se crea correctamente
@@ -184,7 +189,7 @@ def register(request):
                 p.save()
                 do_login(request, u)
                 # Y le redireccionamos a la portada
-                return redirect('/pagarSuscripcion')
+                return redirect('/')
     # Si llegamos al final renderizamos el formulario
     return render(request, "registration/register.html", {'form': form})
 
@@ -194,13 +199,21 @@ def pasarpremium(request):
     usuario = Usuario.objects.get(user=user)
     if request.method == "POST":
         tarjeta = request.POST['tarjeta']
-        if tarjeta == usuario.tarjeta:
+        ut = usuario.tarjeta
+        if ut == "":
+            usuario.tarjeta = tarjeta
             usuario.cantPerfiles = 4
             usuario.is_premium = True
             usuario.save()
             return render(request, 'pasar_premium.html', {'cant': 2})
         else:
-            return render(request, 'pasar_premium.html', {'cant': 0})
+            if tarjeta == usuario.tarjeta:
+                usuario.cantPerfiles = 4
+                usuario.is_premium = True
+                usuario.save()
+                return render(request, 'pasar_premium.html', {'cant': 2})
+            else:
+                return render(request, 'pasar_premium.html', {'cant': 0})
     return render(request, "pasar_premium.html", {'cant': 1})
 
 
@@ -251,7 +264,8 @@ def pagarsuscripcion(request):
     if request.method == "POST":
         tarjeta = request.POST["tarjeta"]
         usuario = Usuario.objects.get(user=user)
-        if usuario.tarjeta is None:
+        ut = usuario.tarjeta
+        if ut == "":
             usuario.tarjeta = tarjeta
             if usuario.is_premium:
                 usuario.cantPerfiles = 4
