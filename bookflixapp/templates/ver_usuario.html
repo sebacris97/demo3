@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<title>Datos de Usuario</title>
+
+<div class="row"><div class="col-md-5 mx-auto">
+
+<br>
+
+<h3>Datos de usuario</h3>
+
+<br>
+
+ <div class="form-group">
+
+    <label for="ex1">Nombre</label>
+    <input class="form-control" readonly id="ex1" type="text" value={{ user.first_name }}>
+
+<br>
+
+    <label for="ex2">Apellido</label>
+    <input class="form-control" id="ex2" readonly type="text" value={{ user.last_name }}>
+
+<br>
+
+    <label for="ex3">Email</label>
+    <a class="form-control"  id="ex3" readonly type="text">{{ user.email }}</a>
+
+<br>
+
+    <label for="ex4">Fecha de nacimiento</label>
+    <a class="form-control"  id="ex4" type="date" readonly>{{ usuario.fecha_de_nacimiento }}</a>
+
+<br>
+
+    <label for="ex4">Tarjeta</label>
+    <a class="form-control"  id="ex4" type="text" readonly>{{ usuario.tarjeta }}</a>
+
+</div>
+
+</div></div>
+
+    <div class="row"><div class="col-md-5 mx-auto">
+      <a class="btn btn-warning" href="/pagarSuscripcion" role="button">Pagar Suscripcion</a>
+      {% if not usuario.is_premium %}
+        <a class="btn btn-success" href="/premium" role="button">Cambiar a Premium</a>
+      {% else %}
+        <a class="btn btn-success" href="/normal" role="button">Cambiar a Normal</a>
+      {% endif %}
+    </div></div>
+
+<div class="row">
+<div class="col-md-5 mx-auto">
+    <a class="btn btn-primary float-left" href="/modificarDatos" role="button">Modificar Datos</a>
+    <a class="btn btn-danger float-right" href="/eliminarDatos" role="button">Eliminar Cuenta</a>
+</div>
+</div>
+
+{% endblock %}
