@@ -224,17 +224,10 @@ def pasarnormal(request):
     perfiles = Perfil.objects.filter(usuario=usuario)
     if request.method == "POST":
         if perfiles.count() <= 2:
-            try:
-                tarjeta = request.POST['tarjeta']
-            except MultiValueDictKeyError:
-                return render(request, "pasar_normal.html", {'cant': 1})
-            if tarjeta == usuario.tarjeta:
-                usuario.cantPerfiles = 2
-                usuario.is_premium = False
-                usuario.save()
-                return render(request, 'pasar_normal.html', {'cant': 3})
-            else:
-                return render(request, 'pasar_normal.html', {'cant': 0})
+            usuario.cantPerfiles = 2
+            usuario.is_premium = False
+            usuario.save()
+            return render(request, 'pasar_normal.html', {'cant': 1})
         else:
             p_seleccionado_id = int(request.POST['nombre'])
             p_seleccionado = Perfil.objects.get(id=p_seleccionado_id)
