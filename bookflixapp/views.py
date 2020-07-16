@@ -236,8 +236,8 @@ def pasarnormal(request):
             else:
                 return render(request, 'pasar_normal.html', {'cant': 0})
         else:
-            p_seleccionado_id = request.POST['nombre']
-            p_seleccionado = Perfil.objects.get(username=p_seleccionado_id)
+            p_seleccionado_id = int(request.POST['nombre'])
+            p_seleccionado = Perfil.objects.get(id=p_seleccionado_id)
             p = Perfil.objects.filter(usuario=usuario)
             sel = p_seleccionado.selected
             for per in p:
@@ -415,8 +415,8 @@ def borrarperfil(request):
     perfiles = Perfil.objects.filter(usuario=usuario)
     cant = perfiles.count()
     if request.method == "POST":
-        p_seleccionado_id = request.POST['nombre']
-        p_seleccionado = Perfil.objects.get(username=p_seleccionado_id)
+        p_seleccionado_id =  int(request.POST['nombre'])
+        p_seleccionado = Perfil.objects.get(id=p_seleccionado_id)
         p = Perfil.objects.filter(usuario=usuario)
         sel = p_seleccionado.selected
         for per in p:
