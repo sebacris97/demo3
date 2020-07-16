@@ -419,7 +419,7 @@ def borrarperfil(request):
                     per.save()
                 p_seleccionado.delete()
                 break
-        return render(request, 'borrar_perfil.html', {"cant": -1})
+        return render(request, 'borrar_perfil.html', {"cant": 0})
     return render(request, 'borrar_perfil.html', {"perfiles": perfiles, "cant": cant})
 
 """
