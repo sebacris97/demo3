@@ -15,12 +15,12 @@
  <div class="form-group">
 
     <label for="ex1">Nombre</label>
-    <input class="form-control" readonly id="ex1" type="text" value={{ user.first_name }}>
+    <input class="form-control" readonly id="ex1" type="text" value="{{ user.first_name }}">
 
 <br>
 
     <label for="ex2">Apellido</label>
-    <input class="form-control" id="ex2" readonly type="text" value={{ user.last_name }}>
+    <input class="form-control" id="ex2" readonly type="text" value="{{ user.last_name }}">
 
 <br>
 
@@ -59,8 +59,6 @@ h3 {text-align:center;}
 
 <div class="list-group col-md-6 mx-auto">
 
-     <a class="list-group-item list-group-item-action list-group-item-success"" href="/pagarSuscripcion" role="button">Pagar Suscripcion</a>
-
     <a class="list-group-item list-group-item-action list-group-item-info" href="/modificarDatos" role="button">Modificar Datos</a>
 
       {% if not usuario.is_premium %}
@@ -69,7 +67,9 @@ h3 {text-align:center;}
 
       {% else %}
 
-        <a class="list-group-item list-group-item-action list-group-item-warning" href="/normal" role="button">Cambiar a Normal</a>
+        <a class="list-group-item list-group-item-action list-group-item-success"" href="/pagarSuscripcion" role="button">Pagar Suscripcion</a>
+
+        <a class="list-group-item list-group-item-action list-group-item-warning" href="/normal" role="button">Cancelar Suscripcion</a>
 
       {% endif %}
 

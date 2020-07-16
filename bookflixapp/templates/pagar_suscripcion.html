@@ -17,8 +17,8 @@
 <form method="POST">{% csrf_token %}
     <div class="form-group col-md-2">
         <label for="tarjeta">Numero De Tarjeta</label>
-        <input id="tarjeta" class="form-control" type="text" minlength="16" maxlength="16" placeholder="1234567891123456"
-               name="tarjeta" autocomplete="off" required>
+        <input id="tarjeta" class="form-control" type="text" minlength="16" maxlength="16" placeholder="Ingrese Su Tarjeta"
+               name="tarjeta" autocomplete="off" required pattern="\d{16,16}">
         <button class="btn btn-primary" value="Pagar">Pagar</button>
     </div>
 </form>

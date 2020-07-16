@@ -71,15 +71,22 @@ class EditProfileForm(forms.ModelForm):
         email = self.cleaned_data.get("email")
         owns_email = (email != self.user.email)
         if User.objects.filter(email__icontains=email).exists() and owns_email:
-            raise forms.ValidationError("This email already registered.")
+            raise forms.ValidationError("El email ya esta registrado")
         return email
 
         
 class ProfileForm(forms.ModelForm):
+    tarjeta = forms.CharField(required=False, label="Tarjeta De Credito", max_length=16, min_length=16)
+
+    def clean_tarjeta(self):
+        tarjeta = self.cleaned_data.get("tarjeta")
+        if tarjeta != "" and not tarjeta.isdigit():
+            raise forms.ValidationError("Tarjeta invalida")
+        return tarjeta
 
     class Meta:
         model = Usuario
-        fields = ('tarjeta','fecha_de_nacimiento',)
+        fields = ('tarjeta', 'fecha_de_nacimiento',)
 
 
 class CreateProfileForm(forms.Form):
