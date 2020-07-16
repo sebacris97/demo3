@@ -248,6 +248,9 @@ def pasarnormal(request):
     if perfiles.count() > 2:
         return render(request,'borrar_perfil.html', {'perfiles': perfiles, 'cant': 10})
     else:
+        usuario.cantPerfiles = 2
+        usuario.is_premium = False
+        usuario.save()
         return render(request, "pasar_normal.html", {'cant': 1})
 
 
