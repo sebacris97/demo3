@@ -4,7 +4,14 @@
 
 {% block content %}
 
+<div class="row">
+<div class="col-md-6 mx-auto">
+
+<br>
 <h2>Modificar Perfil</h2>
+<br>
+
+
 {% if cant < 0 %}
     <h3>El nombre de perfil ya esta en uso</h3>
     <a class="btn btn-primary" href="/modificarPerfil" role="button">Volver</a>
@@ -17,5 +24,8 @@
         </form>
     </div>
 {% endif %}
+
+</div>
+</div>
 
 {% endblock %}
